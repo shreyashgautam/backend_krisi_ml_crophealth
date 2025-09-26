@@ -1,5 +1,6 @@
 # app.py
 from fastapi import FastAPI, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image
 import torch
 import torch.nn as nn
@@ -49,6 +50,17 @@ model.to(device)
 # FastAPI App
 # ===============================
 app = FastAPI()
+
+# ===============================
+# Enable CORS (Allow Everyone)
+# ===============================
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # allow all domains
+    allow_credentials=True,
+    allow_methods=["*"],  # allow all HTTP methods
+    allow_headers=["*"],  # allow all headers
+)
 
 # ===============================
 # Image Transform
